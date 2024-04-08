@@ -10,9 +10,4 @@ public class VideominerApplication {
 		SpringApplication.run(VideominerApplication.class, args);
 	}
 
-
-	// PUSH DE PRUEBA
-	//otro mas
-	//commit
-	// commit
 }
