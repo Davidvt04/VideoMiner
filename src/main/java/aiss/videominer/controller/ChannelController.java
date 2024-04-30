@@ -35,7 +35,6 @@ public class ChannelController {
     public List<Channel> findChannels() throws ChannelNotFoundException{
         List<Channel> channels = new ArrayList<Channel>(repository.findAll());
         if(channels.isEmpty()){
-            System.out.println("Lista vacia " + channels);
             throw new ChannelNotFoundException();
         }
         return channels;
