@@ -33,7 +33,7 @@ public class CommentController {
     }
     @GetMapping
     public List<Comment> findComments() throws CommentNotFoundException {
-        List<Comment> comments = new ArrayList<Channel>(repository.findAll());
+        List<Comment> comments = new ArrayList<Comment>(repository.findAll());
         if(comments.isEmpty()){
             throw new CommentNotFoundException();
         }
