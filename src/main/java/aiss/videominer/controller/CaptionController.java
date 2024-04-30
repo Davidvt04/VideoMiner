@@ -1,9 +1,8 @@
 package aiss.videominer.controller;
 
 
-import aiss.videominer.exception.ChannelNotFoundException;
+import aiss.videominer.exception.CaptionNotFoundException;
 import aiss.videominer.model.Caption;
-import aiss.videominer.model.Channel;
 import aiss.videominer.repository.CaptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +22,7 @@ public class CaptionController {
     CaptionRepository repository;
 
     @GetMapping("/{id}")
-    public Caption findCaption(@PathVariable(value = "id") Long id) throws CaptionNotFoundException {
+    public Caption findCaption(@PathVariable(value = "id") String id) throws CaptionNotFoundException {
         Optional<Caption> caption = repository.findById(id);
         if(!caption.isPresent()){
             throw new   CaptionNotFoundException();
