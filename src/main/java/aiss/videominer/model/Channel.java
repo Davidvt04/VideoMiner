@@ -5,6 +5,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
+import java.sql.Time;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +24,7 @@ public class Channel {
 
     @JsonProperty("name")
     @NotEmpty(message = "Channel name cannot be empty")
+    @Column(name = "name")
     private String name;
 
     @JsonProperty("description")
@@ -29,6 +33,7 @@ public class Channel {
 
     @JsonProperty("createdTime")
     @NotEmpty(message = "Channel creation time cannot be empty")
+    @Column(name = "createdTime")
     private String createdTime;
 
     @JsonProperty("videos")
@@ -79,6 +84,15 @@ public class Channel {
 
     public void setVideos(List<Video> videos) {
         this.videos = videos;
+    }
+
+
+    public Channel(String id, String name, String description, String createdTime, List<Video> videos) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.createdTime = createdTime;
+        this.videos = new ArrayList<Video>(videos);
     }
 
     @Override

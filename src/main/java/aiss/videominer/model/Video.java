@@ -20,6 +20,7 @@ public class Video {
 
     @JsonProperty("name")
     @NotEmpty(message = "Video name cannot be empty")
+    @Column(name= "name")
     private String name;
 
     @JsonProperty("description")

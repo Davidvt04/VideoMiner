@@ -1,9 +1,7 @@
 package aiss.videominer.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 /**
  * @author Juan C. Alonso
@@ -17,9 +15,11 @@ public class Caption {
     private String id;
 
     @JsonProperty("name")
+    @Column(name="name")
     private String name;
 
     @JsonProperty("language")
+    @Column(name = "language")
     private String language;
 
 

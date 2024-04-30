@@ -22,12 +22,15 @@ public class User {
     private Long id;
 
     @JsonProperty("name")
+    @Column(name = "name")
     private String name;
 
     @JsonProperty("user_link")
+    @Column(name = "user_link")
     private String user_link;
 
     @JsonProperty("picture_link")
+    @Column(name = "picture_link")
     private String picture_link;
 
     public Long getId() {

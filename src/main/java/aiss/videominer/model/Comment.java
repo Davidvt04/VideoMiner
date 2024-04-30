@@ -20,6 +20,7 @@ public class Comment {
     private String text;
 
     @JsonProperty("createdOn")
+    @Column(name = "createdOn")
     private String createdOn;
 
     @JsonProperty("author")
