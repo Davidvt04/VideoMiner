@@ -7,10 +7,10 @@ import aiss.videominer.model.Comment;
 import aiss.videominer.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,11 +32,15 @@ public class CommentController {
         return  comment.get();
     }
     @GetMapping
-    public List<Comment> findComments() throws CommentNotFoundException {
-        List<Comment> comments = new ArrayList<Comment>(repository.findAll());
+    public List<Comment> findComments(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) throws CommentNotFoundException {
+        Pageable paging = PageRequest.of(page, size);
+        Page<Comment> comments = repository.findAll(paging);
         if(comments.isEmpty()){
             throw new CommentNotFoundException();
         }
-        return comments;
+        return comments.getContent();
     }
 }
