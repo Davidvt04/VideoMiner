@@ -2,6 +2,7 @@ package aiss.videominer.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 
 /**
  * @author Juan C. Alonso
@@ -23,14 +24,17 @@ public class User {
 
     @JsonProperty("name")
     @Column(name = "name")
+    @NotEmpty(message = "User name cannot be empty")
     private String name;
 
     @JsonProperty("user_link")
     @Column(name = "user_link")
+    @NotEmpty(message = "User link cannot be empty")
     private String user_link;
 
     @JsonProperty("picture_link")
     @Column(name = "picture_link")
+    @NotEmpty(message = "User picture cannot be empty")
     private String picture_link;
 
     public Long getId() {

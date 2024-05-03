@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 
 import java.sql.Time;
 import java.time.LocalDateTime;
@@ -32,7 +33,7 @@ public class Channel {
     private String description;
 
     @JsonProperty("createdTime")
-    @NotEmpty(message = "Channel creation time cannot be empty")
+    @PastOrPresent(message = "Channel created time cannot be in the future")
     @Column(name = "createdTime")
     private String createdTime;
 
