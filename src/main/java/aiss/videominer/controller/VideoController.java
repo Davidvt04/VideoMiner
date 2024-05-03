@@ -38,6 +38,7 @@ public class VideoController {
             @RequestParam(defaultValue = "10") int size
 
     ) throws VideoNotFoundException {
+
         Pageable paging = PageRequest.ofSize(size);
         Page<Video> videos = repository.findAll(paging);
         if(videos.isEmpty()){
