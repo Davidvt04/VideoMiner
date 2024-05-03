@@ -35,7 +35,7 @@ public class VideoController {
 
     @GetMapping
     public List<Video> findChannels(
-            @RequestParam(defaultValue = "10") int size
+            @RequestParam(required = false, defaultValue = "10") int size
 
     ) throws VideoNotFoundException {
 
