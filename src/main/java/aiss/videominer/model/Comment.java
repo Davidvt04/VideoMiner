@@ -24,7 +24,7 @@ public class Comment {
 
     @JsonProperty("createdOn")
     @Column(name = "createdOn")
-    //@PastOrPresent(message = "Comment creation time can not be in the future")
+    @NotEmpty(message = "Comment creation time can not be empty")
     private String createdOn;
 
     @JsonProperty("author")

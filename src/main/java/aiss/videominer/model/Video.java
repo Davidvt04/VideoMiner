@@ -29,7 +29,7 @@ public class Video {
     private String description;
 
     @JsonProperty("releaseTime")
-    //@PastOrPresent(message = "Video release time cannot be in the future")
+    @NotEmpty(message = "Video release time cannot be empty")
     private String releaseTime;
 
     @JsonProperty("comments")
