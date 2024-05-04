@@ -33,7 +33,7 @@ public class Channel {
     private String description;
 
     @JsonProperty("createdTime")
-    @PastOrPresent(message = "Channel created time cannot be in the future")
+    //@PastOrPresent(message = "Channel created time cannot be in the future")
     @Column(name = "createdTime")
     private String createdTime;
 
