@@ -24,7 +24,7 @@ public class Comment {
 
     @JsonProperty("createdOn")
     @Column(name = "createdOn")
-    @PastOrPresent(message = "Comment creation time can not be in the future")
+    //@PastOrPresent(message = "Comment creation time can not be in the future")
     private String createdOn;
 
     @JsonProperty("author")

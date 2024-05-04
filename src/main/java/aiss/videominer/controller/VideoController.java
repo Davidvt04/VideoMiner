@@ -6,6 +6,13 @@ import aiss.videominer.exception.VideoNotFoundException;
 import aiss.videominer.model.Channel;
 import aiss.videominer.model.Video;
 import aiss.videominer.repository.VideoRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,16 +23,25 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+@Tag(name= "Video", description="Video managament API" )
 @RestController
 @RequestMapping("/videominer/videos")
 public class VideoController {
 
     @Autowired
     VideoRepository repository;
+    @Operation(
+            summary="Retrieve a video by Id",
+            description = "Get a video by specifying its id",
+            tags = {"videos", "get"})
+
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", content = {@Content(schema = @Schema(implementation = Video.class), mediaType = "application/json")}),
+            @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema)})
+    })
 
     @GetMapping("/{id}")
-    public Video findChannel(@PathVariable(value = "id") String id) throws VideoNotFoundException {
+    public Video findVideo(@Parameter(description = "id of the video to be searched")@PathVariable(value = "id") String id) throws VideoNotFoundException {
         Optional<Video> video = repository.findById(id);
         if(!video.isPresent()){
             throw new VideoNotFoundException();
@@ -33,8 +49,16 @@ public class VideoController {
         return video.get();
     }
 
+    @Operation(
+            summary="Retrieve a list of videos",
+            description = "Get a list of videos",
+            tags = {"videos", "get"})
+
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", content = {@Content(schema = @Schema(implementation = Video.class), mediaType = "application/json")})
+    })
     @GetMapping
-    public List<Video> findChannels(
+    public List<Video> findVideos(
             @RequestParam(required = false, defaultValue = "10") int size
 
     ) throws VideoNotFoundException {
