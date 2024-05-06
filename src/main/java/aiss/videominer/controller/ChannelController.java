@@ -66,6 +66,14 @@ public class ChannelController {
         }
         return channels;
     }
+    @Operation(
+            summary = "Insert a Channel ",
+            description= "Add a new channel ",
+            tags = {"channels", "post"})
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Channel", content = {@Content(schema = @Schema(implementation = Channel.class), mediaType = "application/json")}),
+            @ApiResponse(responseCode = "404", content = {@Content(schema = @Schema())}),
+            @ApiResponse(responseCode = "403", content = {@Content(schema = @Schema)})})
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public Channel create(@Valid @RequestBody Channel channel ){
