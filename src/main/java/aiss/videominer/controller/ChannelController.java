@@ -51,8 +51,8 @@ public class ChannelController {
 
 
     @Operation(
-            summary="Retrieve a list of albums",
-            description = "Get a list of albums",
+            summary="Retrieve a list of channels",
+            description = "Get a list of channels",
             tags = {"channels", "get"})
 
     @ApiResponses({
