@@ -13,10 +13,11 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,12 +57,33 @@ public class CaptionController {
             @ApiResponse(responseCode = "200", content = {@Content(schema = @Schema(implementation = Caption.class), mediaType = "application/json")})
     })
     @GetMapping
-    public List<Caption> findCaptions() throws CaptionNotFoundException {
-        List<Caption> captions = new ArrayList<Caption>(repository.findAll());
+    public List<Caption> findCaptions(
+            @RequestParam(required = false, defaultValue = "0") int page,
+            @RequestParam(required = false, defaultValue = "10") int size,
+            @RequestParam(required = false) String language,
+            @RequestParam(required = false) String order
+    ) throws CaptionNotFoundException {
+        Pageable paging;
+        if(order != null){
+            if(order.startsWith("-")){
+                paging= PageRequest.of(page, size, Sort.by(order.substring(1)).descending());
+            }else{
+                paging =PageRequest.of(page, size, Sort.by(order).ascending());
+            }
+        }else{
+            paging= PageRequest.of(page, size);
+        }
+        Page<Caption> captions;
+        if(language!= null){
+            captions = repository.findByLanguage(language, paging);
+        }else{
+            captions = repository.findAll(paging);
+        }
+
         if(captions.isEmpty()){
             throw new CaptionNotFoundException();
         }
-        return captions;
+        return captions.getContent();
     }
 
 }

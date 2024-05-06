@@ -59,11 +59,12 @@ public class VideoController {
     })
     @GetMapping
     public List<Video> findVideos(
+            @RequestParam(required = false, defaultValue = "0") int page,
             @RequestParam(required = false, defaultValue = "10") int size
 
     ) throws VideoNotFoundException {
 
-        Pageable paging = PageRequest.ofSize(size);
+        Pageable paging = PageRequest.of(page, size);
         Page<Video> videos = repository.findAll(paging);
         if(videos.isEmpty()){
             throw new VideoNotFoundException();
