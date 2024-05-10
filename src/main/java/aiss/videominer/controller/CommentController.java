@@ -59,8 +59,8 @@ public class CommentController {
     })
     @GetMapping
     public List<Comment> findComments(
-            @RequestParam(required = false, defaultValue = "0") int page,
-            @RequestParam(required = false, defaultValue = "10") int size
+            @Parameter(description = "number of page to be retrieved") @RequestParam(required = false, defaultValue = "0") int page,
+            @Parameter(description = "size of page to be retrieved") @RequestParam(required = false, defaultValue = "10") int size
     ) throws CommentNotFoundException {
         Pageable paging = PageRequest.of(page, size);
         Page<Comment> comments = repository.findAll(paging);

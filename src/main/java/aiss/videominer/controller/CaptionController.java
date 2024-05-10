@@ -3,7 +3,6 @@ package aiss.videominer.controller;
 
 import aiss.videominer.exception.CaptionNotFoundException;
 import aiss.videominer.model.Caption;
-import aiss.videominer.model.Channel;
 import aiss.videominer.repository.CaptionRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -40,9 +39,10 @@ public class CaptionController {
             @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema)})
     })
     @GetMapping("/{id}")
-    public Caption findCaption(@Parameter(description = "id of the caption to be searched")@PathVariable(value = "id") String id) throws CaptionNotFoundException {
+    public Caption findCaption(@Parameter(description = "id of the caption to be searched")@PathVariable(value = "id") String id) throws
+            CaptionNotFoundException {
         Optional<Caption> caption = repository.findById(id);
-        if(!caption.isPresent()){
+        if(caption.isEmpty()){
             throw new   CaptionNotFoundException();
         }
         return caption.get();
@@ -58,10 +58,10 @@ public class CaptionController {
     })
     @GetMapping
     public List<Caption> findCaptions(
-            @RequestParam(required = false, defaultValue = "0") int page,
-            @RequestParam(required = false, defaultValue = "10") int size,
-            @RequestParam(required = false) String language,
-            @RequestParam(required = false) String order
+            @Parameter(description = "number of page to be retrieved") @RequestParam(required = false, defaultValue = "0") int page,
+            @Parameter(description = "size of page to be retrieved") @RequestParam(required = false, defaultValue = "10") int size,
+            @Parameter(description = "language of captions to be retrieved") @RequestParam(required = false) String language,
+            @Parameter(description = "parameter to order captions retrieved") @RequestParam(required = false) String order
     ) throws CaptionNotFoundException {
         Pageable paging;
         if(order != null){

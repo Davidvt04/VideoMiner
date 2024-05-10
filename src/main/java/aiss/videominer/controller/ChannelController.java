@@ -47,7 +47,7 @@ public class ChannelController {
     @GetMapping("/{id}")
     public Channel findChannel(@Parameter(description = "id of the channel to be searched") @PathVariable(value = "id") String id) throws ChannelNotFoundException {
         Optional<Channel> channel = repository.findById(id);
-        if(!channel.isPresent()){
+        if(channel.isEmpty()){
             throw new ChannelNotFoundException();
         }
         return channel.get();
@@ -64,10 +64,10 @@ public class ChannelController {
     })
     @GetMapping
     public List<Channel> findChannels(
-            @RequestParam(required = false, defaultValue = "0") int page,
-            @RequestParam(required = false, defaultValue = "10") int size,
-            @RequestParam(required = false) String createdTime,
-            @RequestParam(required = false) String order
+            @Parameter(description = "number of page to be retrieved") @RequestParam(required = false, defaultValue = "0") int page,
+            @Parameter(description = "size of page to be retrieved") @RequestParam(required = false, defaultValue = "10") int size,
+            @Parameter(description = "created time of channels to be retrieved") @RequestParam(required = false) String createdTime,
+            @Parameter(description = "parameter to order channels retrieved") @RequestParam(required = false) String order
 
     ) throws ChannelNotFoundException{
         Pageable paging;
@@ -97,8 +97,9 @@ public class ChannelController {
             description= "Add a new channel ",
             tags = {"channels", "post"})
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Channel", content = {@Content(schema = @Schema(implementation = Channel.class), mediaType = "application/json")}),
+            @ApiResponse(responseCode = "201", description = "Channel", content = {@Content(schema = @Schema(implementation = Channel.class), mediaType = "application/json")}),
             @ApiResponse(responseCode = "404", content = {@Content(schema = @Schema())}),
+            @ApiResponse(responseCode = "400", content = {@Content(schema = @Schema)}),
             @ApiResponse(responseCode = "403", content = {@Content(schema = @Schema)})})
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping

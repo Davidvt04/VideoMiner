@@ -43,7 +43,7 @@ public class VideoController {
     @GetMapping("/{id}")
     public Video findVideo(@Parameter(description = "id of the video to be searched")@PathVariable(value = "id") String id) throws VideoNotFoundException {
         Optional<Video> video = repository.findById(id);
-        if(!video.isPresent()){
+        if(video.isEmpty()){
             throw new VideoNotFoundException();
         }
         return video.get();
@@ -59,8 +59,8 @@ public class VideoController {
     })
     @GetMapping
     public List<Video> findVideos(
-            @RequestParam(required = false, defaultValue = "0") int page,
-            @RequestParam(required = false, defaultValue = "10") int size
+            @Parameter(description = "number of page to be retrieved") @RequestParam(required = false, defaultValue = "0") int page,
+            @Parameter(description = "size of page to be retrieved") @RequestParam(required = false, defaultValue = "10") int size
 
     ) throws VideoNotFoundException {
 
