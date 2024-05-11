@@ -2,6 +2,7 @@ package aiss.videominer.controller;
 
 
 import aiss.videominer.exception.CaptionNotFoundException;
+import aiss.videominer.exception.MinException;
 import aiss.videominer.model.Caption;
 import aiss.videominer.repository.CaptionRepository;
 import io.swagger.v3.oas.annotations.Operation;
@@ -62,7 +63,10 @@ public class CaptionController {
             @Parameter(description = "size of page to be retrieved") @RequestParam(required = false, defaultValue = "10") int size,
             @Parameter(description = "language of captions to be retrieved") @RequestParam(required = false) String language,
             @Parameter(description = "parameter to order captions retrieved") @RequestParam(required = false) String order
-    ) throws CaptionNotFoundException {
+    ) throws CaptionNotFoundException, MinException {
+        if(page<0 || size<0){
+            throw new MinException();
+        }
         Pageable paging;
         if(order != null){
             if(order.startsWith("-")){

@@ -2,6 +2,7 @@ package aiss.videominer.controller;
 
 
 import aiss.videominer.exception.ChannelNotFoundException;
+import aiss.videominer.exception.MinException;
 import aiss.videominer.exception.VideoNotFoundException;
 import aiss.videominer.model.Channel;
 import aiss.videominer.model.Video;
@@ -62,8 +63,10 @@ public class VideoController {
             @Parameter(description = "number of page to be retrieved") @RequestParam(required = false, defaultValue = "0") int page,
             @Parameter(description = "size of page to be retrieved") @RequestParam(required = false, defaultValue = "10") int size
 
-    ) throws VideoNotFoundException {
-
+    ) throws VideoNotFoundException, MinException {
+        if(page<0 || size<0){
+            throw new MinException();
+        }
         Pageable paging = PageRequest.of(page, size);
         Page<Video> videos = repository.findAll(paging);
         if(videos.isEmpty()){

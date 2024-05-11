@@ -2,6 +2,7 @@ package aiss.videominer.controller;
 
 import aiss.videominer.exception.ChannelNotFoundException;
 import aiss.videominer.exception.CommentNotFoundException;
+import aiss.videominer.exception.MinException;
 import aiss.videominer.model.Channel;
 import aiss.videominer.model.Comment;
 import aiss.videominer.repository.CommentRepository;
@@ -61,7 +62,10 @@ public class CommentController {
     public List<Comment> findComments(
             @Parameter(description = "number of page to be retrieved") @RequestParam(required = false, defaultValue = "0") int page,
             @Parameter(description = "size of page to be retrieved") @RequestParam(required = false, defaultValue = "10") int size
-    ) throws CommentNotFoundException {
+    ) throws CommentNotFoundException, MinException {
+        if(page<0 || size<0){
+            throw new MinException();
+        }
         Pageable paging = PageRequest.of(page, size);
         Page<Comment> comments = repository.findAll(paging);
         if(comments.isEmpty()){

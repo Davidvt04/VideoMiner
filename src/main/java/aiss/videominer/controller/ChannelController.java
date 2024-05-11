@@ -2,6 +2,7 @@ package aiss.videominer.controller;
 
 import aiss.videominer.exception.ChannelNotFoundException;
 import aiss.videominer.exception.GlobalExceptionHandler;
+import aiss.videominer.exception.MinException;
 import aiss.videominer.model.Channel;
 import aiss.videominer.repository.ChannelRepository;
 import io.swagger.v3.oas.annotations.Operation;
@@ -69,7 +70,10 @@ public class ChannelController {
             @Parameter(description = "created time of channels to be retrieved") @RequestParam(required = false) String createdTime,
             @Parameter(description = "parameter to order channels retrieved") @RequestParam(required = false) String order
 
-    ) throws ChannelNotFoundException{
+    ) throws ChannelNotFoundException, MinException {
+        if(page<0 || size<0){
+            throw new MinException();
+        }
         Pageable paging;
         if(order != null){
             if(order.startsWith("-")){
