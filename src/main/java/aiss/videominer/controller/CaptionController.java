@@ -30,7 +30,7 @@ public class CaptionController {
     @Autowired
     CaptionRepository repository;
     @Operation(
-            summary="Retrieve a caption by Id",
+            summary="Retrieve a caption by Id.",
             description = "Get a caption by specifying its id",
             tags = {"captions", "get"})
 
