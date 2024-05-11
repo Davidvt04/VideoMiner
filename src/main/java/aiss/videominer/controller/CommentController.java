@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Tag(name= "Comment", description="Comment management API" )
+@Tag(name= "Commentarios", description="Comment management API" )
 @RestController
 @RequestMapping("/videominer/comments")
 public class CommentController {
