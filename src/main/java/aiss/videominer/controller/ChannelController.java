@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Tag(name= "Channel", description="Channel managament API" )
+@Tag(name= "Channel", description="Channel management API" )
 @RestController
 @RequestMapping("/videominer/channels")
 public class ChannelController {

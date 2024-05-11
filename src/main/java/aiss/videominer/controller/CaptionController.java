@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Tag(name= "Caption", description="Caption managament API" )
+@Tag(name= "Caption", description="Caption management API" )
 @RestController
 @RequestMapping("/videominer/captions")
 public class CaptionController {

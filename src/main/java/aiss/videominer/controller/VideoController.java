@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-@Tag(name= "Video", description="Video managament API" )
+@Tag(name= "Video", description="Video management API" )
 @RestController
 @RequestMapping("/videominer/videos")
 public class VideoController {
